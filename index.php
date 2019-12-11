@@ -45,7 +45,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style type="text/css">
-  	.radio-toolbar input[type="radio"] {
+  	.radio-toolbar.active input[type="radio"] {
 	  display: none;
 	}
 
@@ -66,11 +66,7 @@
 	  cursor: not-allowed;
 	}
 
-	.radio-toolbar .not-active {
-
-	}
-
-	.radio-toolbar input[type="radio"]:checked+label {
+	.radio-toolbar.active input[type="radio"]:checked+label {
 	  background-color: #f58634;
 	  color: #fff;
 	}
@@ -83,7 +79,7 @@
   <ul class="nav nav-tabs">
   	<?php foreach($fieldGerbong as $value) { 
   		$gerbongActive = reset($fieldGerbong); ?>
-    	<li class="<?php echo ($value == $gerbongActive) ? 'active' : '';?>"><a data-toggle="tab" href="#seatList-<?php echo $value ?>">Gerbong <?php echo $value; ?></a></li>
+    	<li class="<?php echo ($value == $gerbongActive) ? 'active' : '';?>"><a class="tab-button" id="tab-<?php echo $value ?>" href="#seatList-<?php echo $value ?>">Gerbong <?php echo $value; ?></a></li>
   	<?php } ?>
   </ul>
 
@@ -98,9 +94,9 @@
 	      			<input type="radio" name="seat" value="" id="" disabled="disabled">
   					<label for="" class="not-active">X</label>
 	      		<?php }else{ ?>
-	      			<input type="radio" name="seat" value="<?php echo $seat ?>" id="<?php echo $seat ?>">
+	      			<input type="radio" name="seat" value="<?php echo $seat ?>" id="<?php echo $key.'-'.$seat ?>">
 
-  					<label for="<?php echo $seat ?>" class="active"><?php echo $seat ?></label>
+  					<label for="<?php echo $key.'-'.$seat ?>" class="active"><?php echo $seat ?></label>
 	      		<?php } ?>
 	      	<?php } ?>
 	      	<br>
@@ -109,6 +105,12 @@
   	<?php } ?>
   </div>
 </div>
+
+<script type="text/javascript">
+	$('.tab-button').click(function () {
+	    $(this).tab('show');
+	});
+</script>
 
 </body>
 </html>
